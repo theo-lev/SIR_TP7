@@ -4,8 +4,13 @@
 
 <select [(ngModel)]="selectedPokemonId">
   <option [value]="pokemon.id"
-          *ngFor="let pokemon of pokemons |filterPokemonPipe:'name':searchPokeName">
+          *ngFor="let pokemon of pokemons | filterPokemonPipe:'name':searchPokeName">
     {{pokemon.name}}
   </option>
 </select>
 <button (click)="go()">Go</button>
+
+<br />
+
+<app-poke-details [details]="pokeDetails"></app-poke-details>
+

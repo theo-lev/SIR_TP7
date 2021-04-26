@@ -1,33 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { PokeAPIServiceService } from '../poke-apiservice.service';
-import { Pokemon } from '../pokemon';
+import { PokeAPIService } from '../poke-api.service';
+import { PokeShareInfoService } from '../poke-share-info.service';
+import { Pokemon, PokemonDetails } from '../pokemon';
 
 @Component({
   selector: 'app-my-component',
   templateUrl: './my-component.component.html',
   styleUrls: ['./my-component.component.css'],
-  providers: [PokeAPIServiceService]
+  providers: [PokeAPIService]
 })
 export class MyComponentComponent implements OnInit {
 
   id: string;
   selectedPokemonId: String;
-  searchPokeName = '';
+  searchPokeName: String = '';
   pokemons: Pokemon[] = [];
+  pokeDetails: PokemonDetails;
 
-  constructor(private pokeService: PokeAPIServiceService) {
+  constructor(private pokeService: PokeAPIService, private pokeShareInfoService: PokeShareInfoService) {
   }
 
   ngOnInit(): void {
     this.pokeService.getPokemons().subscribe((data) => {
       data.results.forEach((e, index) => {
-        this.pokemons.push(new Pokemon(index +'', e.name));
+        this.pokemons.push(new Pokemon(index+1 +'', e.name));
       })
     });
   }
 
   go() {
-    console.log(this.selectedPokemonId);
+    if (this.selectedPokemonId != '') {
+      this.pokeService.getPokemonInfo(this.selectedPokemonId).subscribe((data) => {
+        this.pokeDetails = data;
+        this.pokeShareInfoService.setValue(this.selectedPokemonId.toString());
+      });
+    }
   }
 
 }

@@ -1,5 +1,16 @@
 # Pokedex
 
+# SIR TP7
+
+## Groupe
+- Théo Lévêque
+- Mariem Roussi
+
+## Lancer le projet
+
+`npm start` pour lancer le projet
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.2.
 
 ## Development server
